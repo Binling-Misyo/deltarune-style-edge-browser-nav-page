@@ -1,217 +1,361 @@
-/* css.css */
-@font-face{
-    font-family: 'undertalefont';
-    src:url(../font/DeterminationMonoWebRegular-Z5oq.ttf) format('truetype');
+/* ===== Fonts ===== */
+@font-face {
+    font-family: "undertalefont";
+    src: url(../font/DeterminationMonoWebRegular-Z5oq.ttf) format("truetype");
 }
 
-@font-face{
-    font-family: 'undertalech';
-    src:url(../font/HYPixel11pxU-2.ttf) format('truetype');
+@font-face {
+    font-family: "undertalech";
+    src: url(../font/HYPixel11pxU-2.ttf) format("truetype");
 }
-@keyframes sans{
-    from{
+
+/* ===== Animations ===== */
+@keyframes sans {
+    from {
         bottom: 0;
-        
     }
-    to{
+
+    to {
         bottom: 15px;
     }
 }
+
 @keyframes asl {
-    0%{
+    0% {
         color: rgb(255, 134, 134);
     }
-    12%{
+
+    12% {
         color: rgb(255, 205, 152);
     }
-    24%{
+
+    24% {
         color: rgb(255, 238, 0);
     }
-    36%{
+
+    36% {
         color: rgb(193, 255, 182);
     }
-    48%{
+
+    48% {
         color: rgb(185, 255, 245);
     }
-    60%{
+
+    60% {
         color: rgb(159, 161, 255);
-
     }
-    72%{
+
+    72% {
         color: rgb(227, 176, 255);
-
     }
-    84%{
+
+    84% {
         color: rgb(252, 184, 244);
-
     }
-    100%{
-        color: rgb(255, 180, 198);
 
+    100% {
+        color: rgb(255, 180, 198);
     }
 }
+
+/* ===== Base ===== */
 * {
     margin: 0;
     padding: 0;
     color: white;
     text-align: center;
-    /* cursor: url(../image/deter.png),pointer; */
-}
-:lang(zh) {
-    font-family: "undertalech",sans-serif;
-  }
-  
-  /* 英文字体 */
-:lang(en) {
-    font-family: "undertalefont", sans-serif;
-}
-h1{
-    animation:asl 3s linear 0s infinite;
-    font-size: 40px;
 }
 
-body{
+body {
     background-color: black;
+    font-family: "undertalefont", "undertalech", sans-serif;
 }
 
-.dhl {
-    display: flex;
-    width: auto;
-    height: 60px;
-    color: white;
-    border: 5px solid white;
-    background-color: black;
-    line-height: 60px;
+h1 {
     font-size: 40px;
-    justify-content: space-between;
+    animation: asl 3s linear 0s infinite;
 }
 
-.dhbql{
-    display: flex;
-    list-style-type: none;
-    justify-content: flex-end;
-}
-.dhbql>li {
-    font-size: 25px;
-    justify-content: flex-end;
-    flex: 1;
-    list-style-type: none;
-    margin-left: 12px;
-}
-
-a{
-    text-decoration: none;
-    color: white;
+a {
     position: relative;
+    color: white;
+    text-decoration: none;
 }
-li>a{
+
+a:hover {
+    color: yellow;
+}
+
+li > a {
     margin-left: 60px;
     margin-right: 60px;
 }
-a:hover{
-    color: yellow;
+
+hr {
+    color: white;
 }
-li>a:hover:before {
-    content: ""; /* 移除直接图片引用 */
+
+/* ===== Shared Header ===== */
+.dhl {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    height: 60px;
+    line-height: 60px;
+    font-size: 40px;
+    color: white;
+    border: 5px solid white;
+    background-color: black;
+}
+
+.dhbql {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+}
+
+.dhbql > li {
+    flex: 1;
+    margin-left: 12px;
+    font-size: 25px;
+    list-style-type: none;
+}
+
+li > a:hover::before {
+    content: "";
     position: absolute;
     top: -1px;
     right: 60px;
-    width: 30px; /* 设置您需要的宽度 */
-    height: 30px; /* 设置您需要的高度 */
-    background: url(../image/deter.png) center/contain no-repeat;
+    width: 30px;
+    height: 30px;
+    background: url(../image/deter.png) center / contain no-repeat;
 }
 
-/* 修改div悬停指示器 */
-a>div:hover:before {
-    content: ""; /* 移除直接图片引用 */
-    background: url(../image/deter.png) center/contain no-repeat;
-    position: absolute;
-    top: 260px;
-    right: 20px;
-    width: 30px; /* 设置您需要的宽度 */
-    height: 30px; /* 设置您需要的高度 */
+/* ===== Main Page ===== */
+.main-page {
+    width: 100vw;
+    overflow-x: hidden;
 }
-  .ptr{
+
+.back-to-top {
+    position: fixed;
+    right: 40px;
+    bottom: 80px;
+}
+
+.search-wrap {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transform: translateX(-50%);
+}
+
+.bing-search {
+    display: flex;
+    width: min(900px, 90vw);
+    border: 4px solid white;
+    background-color: black;
+}
+
+.bing-search select {
+    border: none;
+    border-right: 4px solid white;
+    padding: 0 12px;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+    background-color: black;
+    font-family: "undertalefont", "undertalech", sans-serif;
+}
+
+.bing-search select:focus {
+    outline: none;
+}
+
+.bing-search input {
+    flex: 1;
+    border: none;
+    padding: 14px 16px;
+    font-size: 26px;
+    text-align: left;
+    color: white;
+    background: transparent;
+    font-family: "undertalefont", "undertalech", sans-serif;
+}
+
+.bing-search input:focus {
+    outline: none;
+}
+
+.bing-search button {
+    border: none;
+    border-left: 4px solid white;
+    padding: 0 22px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    background-color: black;
+    font-family: "undertalefont", "undertalech", sans-serif;
+}
+
+.bing-search button:hover {
+    color: yellow;
+}
+
+.f3 {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px;
+    background-color: black;
+}
+
+.f3-video {
+    position: absolute;
+    top: 0;
+    left: -24.5%;
+    z-index: 1;
+    width: 150%;
+    height: 110%;
+    object-fit: cover;
+    object-position: center 100%;
+}
+
+.ptr {
     position: relative;
     display: grid;
-    margin: 0 auto;
-    margin-top: 10px;
-    font-size: 30px;
+    width: 70%;
     height: 1300px;
-    width: 80%;
+    margin: 10px auto 0;
     gap: 16px;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(4,1fr);
-  }
-  .ptr div{
+    font-size: 30px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.ptr div {
+    position: relative;
     border: 5px solid white;
     padding: 5px;
     text-align: center;
     line-height: 30px;
-    position: relative;
-  }
-.ptr div:hover{
-    animation:sans 0.3s linear 0s 1;
-    color: yellow;
+}
+
+.ptr div:hover {
     bottom: 15px;
-}  
-.ptr div>img{
-    height: 250px;
+    color: yellow;
+    animation: sans 0.3s linear 0s 1;
+}
+
+a > div:hover::before {
+    content: "";
+    position: absolute;
+    top: 260px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: url(../image/deter.png) center / contain no-repeat;
+}
+
+.ptr div > img {
     width: 250px;
+    height: 250px;
     background-size: contain;
-  }
-.kl{
+}
+
+.kl {
     grid-area: span 2 / span 2;
 }
-.kl div>img{
-    height: 570px;
+
+.kl div > img {
     width: 500px;
+    height: 570px;
     background-size: contain;
-  }
-.end{
-    position:absolute;
-    height: 10%;
-    width: 100%;
+}
+
+.route-title {
+    line-height: 100px;
+    text-align: center;
+}
+
+.mlist {
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    gap: 10px;
+    grid-template-columns: 1fr 7fr;
+    grid-template-rows: repeat(6, 150px);
+}
+
+.mlist div {
+    border: 5px solid white;
+    padding: 10px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.mlist-item--lg {
+    font-size: 28px !important;
+}
+
+.mlist-item--md {
+    font-size: 24px !important;
+}
+
+/* ===== About Page ===== */
+.about-page {
+    position: relative;
+    height: 100vh;
+    line-height: 30px;
+}
+
+.about-title {
+    font-size: 30px;
+}
+
+.highlight {
+    color: yellow;
+}
+
+.end {
+    position: absolute;
     bottom: 20px;
-}
-.f3{
-    height: 400px;
     width: 100%;
-    background-image: url(../image/ch.gif);
-    background-size: 145% 200%;
-    background-repeat: no-repeat;
-    background-position: 50% 98%;
+    height: 10%;
 }
-.chfile-con{
-    margin: 10px;
-    margin-top: 40px;
+
+/* ===== Wiki Page ===== */
+.wiki-container {
+    display: flex;
+    justify-content: center;
+}
+
+.chfile-con {
+    display: grid;
     width: 600px;
     height: 600px;
-    display: grid;
+    margin: 40px 10px 10px;
     gap: 10px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 2fr;
 }
-.chfile-con>div{
+
+.chfile-con > div {
     border: 5px solid white;
-    background-color: black;
+    padding: 10px;
     color: white;
-    padding: 10px;
+    background-color: black;
 }
-.pro{
-    grid-row: 2 span;
+
+.pro {
+    grid-row: span 2;
 }
-.mlist{
-    display: grid;
-    margin: 0 auto;
-    width: 80%;
-    grid-template-columns: 1fr 7fr;
-    grid-template-rows: repeat(6,150px);
-    gap: 10px;
-}
-.mlist div{
-    border: 5px solid white;
-    font-size: 30px;
+
+.profile-title {
+    font-size: 50px;
     text-align: left;
-    padding: 10px;
 }

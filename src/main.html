@@ -1,81 +1,97 @@
 <!-- main.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
-    <meta charset="ch-ZN">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MISYOTALE</title>
     <link rel="stylesheet" href="../CSS/css.css">
     <link rel="icon" href="../image/icon.png">
 </head>
 
-<body style="background-color: black;width: 100vw;overflow-x: hidden;">
-    <a href="#Start" style="position: fixed;right:40px;bottom: 80px;"><img src="../image/deter.png" alt=""></a>
+<body class="main-page">
+    <a class="back-to-top" href="#Start"><img src="../image/deter.png" alt=""></a>
     <div class="dhl">
         <h1 id="Start">*MISYO&nbsp;<span lang="zh">导航页</span></h1>
         <ul class="dhbql" lang="zh">
             <li><a href="wiki.html" target="_blank">维基</a></li>
-            <li><a href="" target="_blank">信息</a></li>
+            <li><a href="https://cn.bing.com/?mkt=zh-CN" target="_blank">信息</a></li>
             <li><a href="about.html">关于</a></li>
-            <li><a href="" target="_blank">控制</a></li>
+            <li><a href="edge://extensions/" target="_blank">控制</a></li>
         </ul>
     </div>
-    <div class="f3"></div>
-    <hr style="color: white;">
+    <div class="f3">
+        <video class="f3-video" autoplay muted loop playsinline>
+            <source src="../vid/QQ2025617-124157-HD.mp4" type="video/mp4">
+        </video>
+        <div class="search-wrap" lang="zh">
+            <form id="searchForm" class="bing-search" action="https://cn.bing.com/search" method="get" target="_self">
+                <select id="searchEngine" aria-label="选择搜索引擎">
+                    <option value="bing" selected><span lang="en">Bing</span></option>
+                    <option value="google"><span lang="en">Google</span></option>
+                    <option value="baidu"><span lang="en">Baidu</span></option>
+                    <option value="github"><span lang="en">GitHub</span></option>
+                </select>
+                <input id="searchInput" type="text" name="q" placeholder="在 Bing 中搜索..." autocomplete="off" required>
+                <button type="submit">搜索</button>
+            </form>
+        </div>
+    </div>
+    <hr>
     <div class="ptr" lang="zh">
         <a href="https://i.chaoxing.com/base?t=1749358614086" target="_blank">
-            <div><img src="../image/xxt.jpg" alt=""></img><br>*超星学习通</div>
+            <div><img src="../image/xxt.jpg" alt=""><br>*超星学习通</div>
         </a>
         <a href="https://www.bilibili.com/" target="_blank">
-            <div><img src="../image/bilibili.png" alt=""></img><br>*哔哩哔哩</div>
+            <div><img src="../image/bilibili.png" alt=""><br>*哔哩哔哩</div>
         </a>
         <a href="https://chat.deepseek.com/sign_in" target="_blank">
-            <div><img src="../image/ds.png" alt=""></img><br>*深度求索</div>
+            <div><img src="../image/ds.png" alt=""><br>*深度求索</div>
         </a>
         <a href="http://tsg.zknu.edu.cn:8080/reader/login.php" target="_blank">
-            <div><img src="../image/zknuli.png" alt=""></img><br>*周师图书馆</div>
+            <div><img src="../image/zknuli.png" alt=""><br>*周师图书馆</div>
         </a>
         <a href="https://www.luogu.com.cn/" target="_blank">
-            <div><img src="../image/luogu.png" alt=""></img><br>*洛谷</div>
+            <div><img src="../image/luogu.png" alt=""><br>*洛谷</div>
         </a>
-        <a class="kl" href="https://github.com/">
+        <a href="https://github.com/">
             <div>
-                <img src="../image/git.png" alt=""></img><br> <span lang="en">*Github</span> 
+                <img src="../image/git.png" alt=""><br> <span lang="en">*Github</span> 
             </div>
         </a>
         <a href="https://tools.miku.ac/" target="_blank">
-            <div><img src="../image/绘制网站 Logo.png" alt=""></img><br> <span lang="en">*MikuTools</span> </div>
+            <div><img src="../image/绘制网站 Logo.png" alt=""><br> <span lang="en">*MikuTools</span> </div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="https://chatgpt.com/" target="_blank">
+            <div><img src="../image/chatgpt.png" alt=""><br><span lang="en">*ChatGPT</span></div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="https://www.douyin.com/" target="_blank">
+            <div><img src="../image/gugu.png" alt=""><br>*抖音</div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="javascript:void(0)" aria-disabled="true">
+            <div><img src="../image/gugu.png" alt=""><br>*鸽了</div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="javascript:void(0)" aria-disabled="true">
+            <div><img src="../image/gugu.png" alt=""><br>*鸽了</div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="javascript:void(0)" aria-disabled="true">
+            <div><img src="../image/gugu.png" alt=""><br>*鸽了</div>
         </a>
-        <a href="">
-            <div><img src="../image/gugu.png" alt=""></img><br>*鸽了</div>
+        <a href="javascript:void(0)" aria-disabled="true">
+            <div><img src="../image/gugu.png" alt=""><br>*鸽了</div>
         </a>
     </div>
-    <h2 style="text-align: center;line-height: 100px;" lang="zh">魔法修炼路线</h2>
+    <h2 class="route-title" lang="zh">魔法修炼路线</h2>
     <div class="mlist" lang="zh">
         <div><span lang="en">C++</span>编程</div>
-        <div>变量、运算、流程控制、函数、指针、宏定义、文件流、<span lang="en">OOP</span>、<span lang="en">STL</span>、</span>内存</div>
+        <div>变量、运算、流程控制、函数、指针、宏定义、文件流、<span lang="en">OOP</span>、<span lang="en">STL</span>、内存</div>
         <div>C++数据结构算法</div>
-        <div style="font-size: 28px;">数组、链表、栈、队列、哈希表、二叉树、二叉搜索树、平衡二叉搜索树、堆、图、KMP、Trie树、位图、四叉树/八叉树
+        <div class="mlist-item--lg">数组、链表、栈、队列、哈希表、二叉树、二叉搜索树、平衡二叉搜索树、堆、图、KMP、Trie树、位图、四叉树/八叉树
             B树/B+树、递归分治、贪心、动态规划、红黑树
         </div>
         <div>计算机/网络基础</div>
-        <div style="font-size: 24px;">OSI、TCP/IP、HTTP/HTTPS、DNS、WebSocket、UDP、ICMP、路由协议、MAC地址、以太网帧结构、低功耗蓝牙BLE通信
+        <div class="mlist-item--md">OSI、TCP/IP、HTTP/HTTPS、DNS、WebSocket、UDP、ICMP、路由协议、MAC地址、以太网帧结构、低功耗蓝牙BLE通信
             蜂窝网络（4G/5G）、信号调制、编码方式、Socket编程、CDN、Web安全、NAT穿透
         </div>
         <div>Git</div>
@@ -85,6 +101,6 @@
         <div>数据库</div>
         <div>demo</div>
     </div>
+    <script src="./main.js"></script>
 </body>
-
 </html>
