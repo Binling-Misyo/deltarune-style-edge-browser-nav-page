@@ -245,7 +245,7 @@ li > a:hover::before {
     line-height: 30px;
 }
 
-.ptr div:hover {
+.ptr div:hover span{
     bottom: 15px;
     color: yellow;
     animation: sans 0.3s linear 0s 1;
