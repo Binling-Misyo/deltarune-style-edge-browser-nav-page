@@ -25,7 +25,7 @@ const DefaultLinkList = [
   new LinkDiv("MikuTools", "https://tools.miku.ac/", 6, "../image/绘制网站 Logo.png"),
   new LinkDiv("ChatGPT", "https://chatgpt.com/", 7, "../image/chatgpt.png"),
   new LinkDiv("抖音", "https://www.douyin.com/", 8, "../image/douyin.png"),
-  new LinkDiv("鸽了", "javascript:void(0)", 9, "../image/gugu.png")
+  new LinkDiv("Dog-鸽了", "javascript:void(0)", 9, "../image/dog.webp")
 ];
 const loadLinkList = () => {
   try {
