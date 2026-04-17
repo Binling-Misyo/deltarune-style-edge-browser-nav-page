@@ -14,25 +14,65 @@
             <li><a href="main.html">主页</a></li>
         </ul>
     </div>
-    <h2 style="text-align: left;margin-top: 30px;margin-left: 30px;display: block;">
-        <img src="../image/deter.png" alt="" width: 20px;height: 20px;background-size:20%;">
-        自定义导航项
-    </h2>
-    <p style="text-align: left;margin-top: 10px;margin-left: 30px;color: rgb(177, 177, 177);">在此处添加您喜欢的网站链接，方便快速访问。</p><br>
-    <div class="baseBlock newLink" lang="zh">
-        <from>
-            <label>
-                网站名称：<input class="inputText" type="text" name="siteName" placeholder="例如：GitHub">
-            </label><br>
-            <label>
-                网站链接：<input class="inputText" type="url" name="siteURL" placeholder="例如：https://github.com">
-            </label><br>
-            <label style="margin-bottom: 0px;">
-                图标路径：<input class="inputText" type="text" name="siteIcon" placeholder="例如：../image/git.png">
-            </label><br>
-            <p style="text-align: left;margin-left: 10px; color: rgb(177, 177, 177);">*若不填写则使用默认图标</p><br>
-            <button type="submit" class="baseBlock" style="margin-left: 10px;margin-bottom: 30px;text-align: center;display: block;width: 90%;height: 40px;font-size: 20px;">确认添加</button>
-        </from>
+    <p class="notice"></p>
+    <div class="editLink">
+        <div class="left">
+            <h2 style="text-align: left;margin-top: 30px;margin-left: 30px;display: block;">
+                <img src="../image/deter.png" alt="" width: 20px;height: 20px;background-size:20%;">
+                自定义导航项
+            </h2>
+            <p style="text-align: left;margin-top: 10px;margin-left: 30px;color: rgb(177, 177, 177);">在此处添加您喜欢的网站链接，方便快速访问。</p><br>
+            <div class="baseBlock newLink" lang="zh">
+                <from>
+                    <label >
+                        网站名称：<input class="inputText" type="text" name="siteName" placeholder="例如：GitHub" id="newLinkName">
+                    </label><br>    
+                    <label>
+                        网站链接：<input class="inputText" type="url" name="siteURL" placeholder="例如：https://github.com" id="newLinkURL">
+                    </label><br>
+                    <label style="margin-bottom: 0px;">
+                        图标路径：<input class="inputText" type="text" name="siteIcon" placeholder="例如：../image/git.png" id="newLinkImg">
+                    </label><br>
+                    <p style="text-align: left;margin-left: 10px; color: rgb(177, 177, 177);">*若不填写则使用默认图标</p><br>
+                    <button type="button" class="baseBlock" onclick="submitNewLink()" style="margin-left: 10px;margin-bottom: 30px;text-align: center;display: block;width: 90%;height: 50px;">
+                        <span class="buttonText" style="font-size: 30px;">确认添加</span>
+                    </button>
+                </from>
+            </div>
+        </div>
+        <div class="right">
+            <h2 style="text-align: left;margin-top: 30px;margin-left: 30px;display: block;">
+                <img src="../image/deter.png" alt="" width: 20px;height: 20px;background-size:20%;">
+                已添加的导航项
+            </h2>
+            <p style="text-align: left;margin-top: 10px;margin-left: 30px;color: rgb(177, 177, 177);">在此处编辑已添加的导航项</p><br>
+            <div class="baseBlock">
+                <div class="linkList" id="linkListContainer basebBlock">
+                    <!-- 已添加的链接将显示在这里 -->
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="ConfigSetting baseBlock">
+        <!-- 样式模板 -->
+         <div>
+            <div>按键点击音效</div>
+            <button><span class="buttonText">关闭</span></button>
+         </div>
+         <div>
+            <div>导航栏鼠标悬停音效</div>
+            <button><span class="buttonText">关闭</span></button>
+         </div>
+        <div>
+            <div>主页背景音乐</div>
+            <button><span class="buttonText">关闭</span></button>
+        </div>
+        <div class="div2">
+            <div>自定义主页背景音乐</div>
+            <input class="inputText" type="text" name="siteIcon" placeholder="例如：../mus/ch4_credits.mp3" id="newBGM">
+        </div>
+    </div>
+    <script src="dogcode.js"></script>
 </body>
 </html>

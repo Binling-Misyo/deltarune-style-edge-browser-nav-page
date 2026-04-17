@@ -1,3 +1,4 @@
+console.log("狗代码开始加载...");
 class LinkDiv{
     constructor(name,url,id,imgPath){
         this.name = name;
@@ -30,54 +31,47 @@ const DefaultLinkList = [
 const loadLinkList = () => {
   try {
     const list = JSON.parse(localStorage.getItem('linkList')) || DefaultLinkList;
+    console.log("加载链接列表：", list);
     return list.map(i => new LinkDiv(i.name, i.url, i.id, i.imgPath));
   } catch {
+    console.log("加载链接列表失败，使用默认列表");
     return DefaultLinkList.map(i => new LinkDiv(i.name, i.url, i.id, i.imgPath));
   }
 };
-
+let linkList = loadLinkList();
 function displayLinkList(linkList,container){
     container.innerHTML = linkList.map(i => i.printHTML()).join('');
-}
-let linkList = loadLinkList();
-displayLinkList(linkList,document.querySelector(".ptr"));
-
-const searchForm = document.getElementById("searchForm");
-const searchEngine = document.getElementById("searchEngine");
-const searchInput = document.getElementById("searchInput");
-
-const engineConfig = {
-    bing: {
-        action: "https://cn.bing.com/search",
-        inputName: "q",
-        placeholder: "在 Bing 中搜索..."
-    },
-    google: {
-        action: "https://www.google.com/search",
-        inputName: "q",
-        placeholder: "在 Google 中搜索..."
-    },
-    baidu: {
-        action: "https://www.baidu.com/s",
-        inputName: "wd",
-        placeholder: "在 Baidu 中搜索..."
-    },
-    github: {
-        action: "https://github.com/search",
-        inputName: "q",
-        placeholder: "在 GitHub 中搜索..."
-    }
-};
-
-function updateSearchEngine(engine) {
-    const config = engineConfig[engine] || engineConfig.bing;
-    searchForm.action = config.action;
-    searchInput.name = config.inputName;
-    searchInput.placeholder = config.placeholder;
+    console.log("显示链接列表：", linkList);
 }
 
-searchEngine.addEventListener("change", (event) => {
-    updateSearchEngine(event.target.value);
-});
+function getNewLink(){
+    const name = document.getElementById("newLinkName").value;
+    console.log("获取新链接名称：", name);
+    const url = document.getElementById("newLinkURL").value;
+    console.log("获取新链接URL：", url);
+    const imgPath = document.getElementById("newLinkImg").value || "../image/dog.webp";
+    console.log("获取新链接图标路径：", imgPath);
+    return new LinkDiv(name, url, linkList.length, imgPath);
+}
+function saveLinkList(){
+    localStorage.setItem('linkList', JSON.stringify(linkList));
+    addNotice("新链接已保存！");
+    console.log("保存链接列表：", linkList);
+}
+function submitNewLink(){
+    const newLink = getNewLink();
+    linkList.push(newLink);
+    saveLinkList();
+    console.log("提交新链接：", newLink);
+}
+function addNotice(message){
+    const notice = document.querySelector(".notice");
+    notice.textContent = message;
+    console.log("显示通知：", message);
+    setTimeout(() => {
+        notice.textContent = "";
+        console.log("清除通知");
+    }, 3000);
+}
 
-updateSearchEngine(searchEngine.value);
+console.log("狗代码加载完成！");

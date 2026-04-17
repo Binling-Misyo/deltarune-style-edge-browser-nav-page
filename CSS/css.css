@@ -235,10 +235,10 @@ li > a:hover::before {
 .ptr {
     position: relative;
     display: grid;
-    width: 70%;
-    height: 1300px;
-    margin: 10px auto 0;
-    gap: 16px;
+    width: 74%;
+    /* height: 1 */
+    margin: auto;
+    gap: 17px;
     font-size: 30px;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
