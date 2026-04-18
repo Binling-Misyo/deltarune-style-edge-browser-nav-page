@@ -73,5 +73,7 @@ function addNotice(message){
         console.log("清除通知");
     }, 3000);
 }
-
+const addButton = document.getElementById('addButton');
+console.log('添加按钮：'+addButton)
+addButton.addEventListener('click',submitNewLink)
 console.log("狗代码加载完成！");

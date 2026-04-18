@@ -34,7 +34,7 @@
                         图标路径：<input class="inputText" type="text" name="siteIcon" placeholder="例如：../image/git.png" id="newLinkImg">
                     </label><br>
                     <p style="text-align: left;margin-left: 10px; color: rgb(177, 177, 177);">*若不填写则使用默认图标</p><br>
-                    <button type="button" class="baseBlock" onclick="submitNewLink()" style="margin-left: 10px;margin-bottom: 30px;text-align: center;display: block;width: 90%;height: 50px;">
+                    <button type="button" class="baseBlock" id="addButton" style="margin-left: 10px;margin-bottom: 30px;text-align: center;display: block;width: 90%;height: 50px;">
                         <span class="buttonText" style="font-size: 30px;">确认添加</span>
                     </button>
                 </from>
@@ -46,9 +46,14 @@
                 已添加的导航项
             </h2>
             <p style="text-align: left;margin-top: 10px;margin-left: 30px;color: rgb(177, 177, 177);">在此处编辑已添加的导航项</p><br>
-            <div class="baseBlock">
-                <div class="linkList" id="linkListContainer basebBlock">
+            <div class="baseBlock" style="height: 369px;margin: 10px;">
+                <div class="linkList baseBlock" id="linkListContainer">
                     <!-- 已添加的链接将显示在这里 -->
+                     <div>占位符</div>
+                </div>
+                <div class="page">
+                    <span class="buttonText">上一页</span>
+                    <span class="buttonText">下一页</span>
                 </div>
             </div>
         </div>
