@@ -87,8 +87,54 @@
     display: flex;
     width: auto;
     height: 70%;
+    flex-direction: column;
+    font-family: "undertalefont", "undertalech", sans-serif;
+}
+.linkList>div>.edit-url{
+    width: 10em;
+}
+.edit-item{
+    display: flex;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
     justify-content: space-between;
-    align-items: center;
+    width: 100%;
+    padding-right: 10px;
+}
+.edit-item>span{
+    text-align: left;
+    overflow: hidden;        /* 隐藏溢出内容 */
+    white-space: nowrap;     /* 强制文本在一行内显示，不换行 */
+    text-overflow: ellipsis; /* 溢出时用省略号表示 */
+}
+.edit-id{
+    width: 10%;
+}
+.edit-name{
+    width: 15%;
+}
+.edit-url{
+    width: 20%;
+}
+.edit-img{
+    width: 20%;
+}
+.edit-actions{
+    width: 30%;
+    text-align: left;
+    margin-right: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+.edit-actions>button{
+    font-size: 20px;
+    line-height: 30px;
+    border: 0;
+    margin-left: 25px;
+    background-color: black;
+    font-family: "undertalefont", "undertalech", sans-serif;
 }
 .page{
     margin-top: 20px;
