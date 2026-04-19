@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>导航页音效插件演示 | 修复版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+            padding: 20px;
+        }
+
+        .demo-container {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 28px 24px 36px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, #E0F2FE, #A5F3FC);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .sub {
+            text-align: center;
+            color: #9ab3cf;
+            font-size: 0.85rem;
+            margin-bottom: 32px;
+        }
+
+        .settings-panel {
+            background: rgba(10, 20, 28, 0.6);
+            border-radius: 32px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .setting-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            color: #eef4ff;
+            font-size: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3a5468;
+            transition: 0.25s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.25s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2dd4bf;
+        }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .url-group {
+            display: flex;
+            flex: 1;
+            gap: 12px;
+            min-width: 180px;
+        }
+        .url-input {
+            flex: 1;
+            background: #0e1a22;
+            border: 1px solid #2e4a62;
+            border-radius: 48px;
+            padding: 10px 18px;
+            color: #cbd5e6;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .url-input:focus {
+            border-color: #2dd4bf;
+        }
+        .browse-btn {
+            background: #2c4f6e;
+            border: none;
+            padding: 0 18px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .browse-btn:hover {
+            background: #3f6e8c;
+        }
+
+        .test-area {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .test-btn {
+            background: linear-gradient(105deg, #f59e0b, #d97706);
+            border: none;
+            padding: 14px 28px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .test-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
+        }
+        .test-btn:active {
+            transform: translateY(2px);
+        }
+
+        .demo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .demo-card {
+            background: rgba(30, 50, 65, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 18px 24px;
+            border-radius: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,240,0.2);
+            flex: 1;
+            min-width: 120px;
+            color: #f0f9ff;
+        }
+        .demo-card:hover {
+            background: #2c5f7a;
+            transform: scale(1.02);
+        }
+        .demo-card:active {
+            transform: scale(0.98);
+        }
+
+        .info-tip {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #7e9ab5;
+            margin-top: 28px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 60px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .volume-slider {
+            width: 100px;
+            accent-color: #2dd4bf;
+        }
+        .status-badge {
+            background: #07161f;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #8db5d0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo-container">
+    <h1>🎧 音效控制中心</h1>
+    <div style="text-align: center; margin-bottom: 8px;">
+        <span class="status-badge">✨ 悬停·点击·氛围音乐 | 修复版</span>
+    </div>
+
+    <div class="settings-panel">
+        <div class="setting-item">
+            <div class="setting-label">🐾 悬停音效</div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="hoverToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">👆 点击音效</div>
+            <label class="toggle-switch">
+                <input type="checkbox" id="clickToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">🎵 背景音乐</div>
+            <div class="flex-row">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="bgmToggle">
+                    <span class="slider"></span>
+                </label>
+                <input type="range" id="bgmVolume" min="0" max="1" step="0.05" value="0.5" class="volume-slider">
+                <span style="font-size:12px; color:#b9d0f0;">音量</span>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-label">📂 音乐地址 (本地/URL)</div>
+            <div class="url-group">
+                <input type="text" id="bgmUrlInput" class="url-input" placeholder="选择本地音乐文件或输入网络地址">
+                <button id="browseFileBtn" class="browse-btn">📁 浏览</button>
+            </div>
+        </div>
+        <div class="info-tip" style="margin-top: 8px;">
+            💡 首次使用请先点击页面任意位置激活音频 → 打开音效开关 → 选择音乐文件并打开背景音乐开关
+        </div>
+    </div>
+
+    <div class="test-area">
+        <button id="testEffectBtn" class="test-btn">🔊 测试音效 (悬停+点击)</button>
+        <p style="font-size: 12px; margin-top: 10px; color: #bbd4f0;">点击按钮会先播放悬停音效，随后播放点击音效</p>
+    </div>
+
+    <div style="margin-top: 12px;">
+        <div style="font-size: 0.8rem; margin-bottom: 12px; color:#bfd9ff;">⬇️ 悬停 / 点击 下面元素体验音效 ⬇️</div>
+        <div class="demo-grid">
+            <div class="demo-card">✨ 快捷方式 1</div>
+            <div class="demo-card">🌟 快捷方式 2</div>
+            <div class="demo-card">⚡ 快捷方式 3</div>
+            <div class="demo-card">🎨 导航卡片</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ======================= 音频管理器 (修复版) =======================
+    class AudioEffectsManager {
+        constructor() {
+            // Web Audio 相关
+            this.audioCtx = null;
+            this.hoverBuffer = null;
+            this.clickBuffer = null;
+            this.sfxReady = false;      // 音效buffer是否已生成
+            
+            // 背景音乐
+            this.bgAudio = null;
+            this.currentBgmUrl = '';
+            this.localBlobUrl = null;
+            
+            // 用户设置
+            this.settings = {
+                hoverEnabled: false,
+                clickEnabled: false,
+                bgmEnabled: false,
+                bgmVolume: 0.5,
+                bgmUrl: ''
+            };
+            
+            // 监听全局首次用户交互以初始化 AudioContext (解决自动播放策略)
+            this.setupFirstInteraction();
+        }
+        
+        // 生成两个简单的正弦波音效 (悬停: 880Hz, 点击: 660Hz)
+        async generateSoundBuffers() {
+            if (!this.audioCtx) return false;
+            try {
+                this.hoverBuffer = await this.createTone(880, 0.2);
+                this.clickBuffer = await this.createTone(660, 0.12);
+                this.sfxReady = true;
+                return true;
+            } catch(e) {
+                console.warn("生成音效失败", e);
+                return false;
+            }
+        }
+        
+        // 使用 OfflineAudioContext 生成指定频率的短音
+        createTone(freq, duration) {
+            return new Promise((resolve) => {
+                const sampleRate = this.audioCtx.sampleRate;
+                const offlineCtx = new OfflineAudioContext(1, sampleRate * duration, sampleRate);
+                const osc = offlineCtx.createOscillator();
+                const gain = offlineCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.value = 0.3;
+                osc.connect(gain);
+                gain.connect(offlineCtx.destination);
+                gain.gain.exponentialRampToValueAtTime(0.0001, offlineCtx.currentTime + duration);
+                osc.start();
+                osc.stop(offlineCtx.currentTime + duration);
+                offlineCtx.startRendering().then(buffer => resolve(buffer)).catch(() => resolve(null));
+            });
+        }
+        
+        // 激活 AudioContext (必须在用户手势内调用)
+        async initAudioContext() {
+            if (this.audioCtx && this.audioCtx.state !== 'closed') {
+                if (this.audioCtx.state === 'suspended') {
+                    await this.audioCtx.resume();
+                }
+                return true;
+            }
+            this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            await this.generateSoundBuffers();
+            if (this.audioCtx.state === 'suspended') {
+                await this.audioCtx.resume();
+            }
+            return true;
+        }
+        
+        // 播放音效的内部方法
+        playBuffer(buffer, volume = 0.3) {
+            if (!this.audioCtx || !buffer) return;
+            const source = this.audioCtx.createBufferSource();
+            const gainNode = this.audioCtx.createGain();
+            source.buffer = buffer;
+            gainNode.gain.value = volume;
+            source.connect(gainNode);
+            gainNode.connect(this.audioCtx.destination);
+            source.start();
+        }
+        
+        async playHover() {
+            if (!this.settings.hoverEnabled) return;
+            if (!this.sfxReady || !this.audioCtx || this.audioCtx.state !== 'running') return;
+            if (this.hoverBuffer) this.playBuffer(this.hoverBuffer, 0.25);
+        }
+        
+        async playClick() {
+            if (!this.settings.clickEnabled) return;
+            if (!this.sfxReady || !this.audioCtx || this.audioCtx.state !== 'running') return;
+            if (this.clickBuffer) this.playBuffer(this.clickBuffer, 0.3);
+        }
+        
+        // 背景音乐管理
+        initBackgroundMusic(url) {
+            if (this.bgAudio) {
+                this.bgAudio.pause();
+                this.bgAudio.src = '';
+                this.bgAudio = null;
+            }
+            if (!url || url.trim() === '') return;
+            this.currentBgmUrl = url;
+            this.bgAudio = new Audio(url);
+            this.bgAudio.loop = true;
+            this.bgAudio.volume = this.settings.bgmVolume;
+            if (this.settings.bgmEnabled) {
+                this.playBgmWithFallback();
+            }
+        }
+        
+        playBgmWithFallback() {
+            if (!this.bgAudio) return;
+            const promise = this.bgAudio.play();
+            if (promise) {
+                promise.catch(e => {
+                    console.warn("背景音乐自动播放被阻止，请手动点击页面激活", e);
+                    this.showAutoPlayTip();
+                });
+            }
+        }
+        
+        showAutoPlayTip() {
+            const tip = document.querySelector('.info-tip:last-child');
+            if (tip && !tip.innerText.includes('点击页面')) {
+                tip.innerHTML = tip.innerHTML + '<br>⚠️ 浏览器限制，请点击页面任意位置激活背景音乐';
+                setTimeout(() => {
+                    if (tip.innerHTML.includes('激活背景音乐')) {
+                        tip.innerHTML = tip.innerHTML.replace('<br>⚠️ 浏览器限制，请点击页面任意位置激活背景音乐', '');
+                    }
+                }, 4000);
+            }
+        }
+        
+        setBgmEnabled(enabled) {
+            this.settings.bgmEnabled = enabled;
+            if (enabled) {
+                if (this.bgAudio && this.currentBgmUrl) {
+                    this.playBgmWithFallback();
+                } else if (this.settings.bgmUrl) {
+                    this.initBackgroundMusic(this.settings.bgmUrl);
+                } else {
+                    this.settings.bgmEnabled = false;
+                    document.getElementById('bgmToggle').checked = false;
+                    alert("请先选择或输入背景音乐地址");
+                }
+            } else {
+                if (this.bgAudio) this.bgAudio.pause();
+            }
+        }
+        
+        setBgmVolume(vol) {
+            this.settings.bgmVolume = vol;
+            if (this.bgAudio) this.bgAudio.volume = vol;
+        }
+        
+        updateBgmUrl(url) {
+            this.settings.bgmUrl = url;
+            if (this.settings.bgmEnabled) {
+                this.initBackgroundMusic(url);
+            }
+        }
+        
+        setHoverEnabled(enabled) { this.settings.hoverEnabled = enabled; }
+        setClickEnabled(enabled) { this.settings.clickEnabled = enabled; }
+        
+        // 清理 blob URL
+        revokeLocalBlob() {
+            if (this.localBlobUrl) {
+                URL.revokeObjectURL(this.localBlobUrl);
+                this.localBlobUrl = null;
+            }
+        }
+        
+        // 全局首次交互：激活 AudioContext 并尝试恢复背景音乐
+        setupFirstInteraction() {
+            const handler = async () => {
+                if (!this.audioCtx || this.audioCtx.state !== 'running') {
+                    await this.initAudioContext();
+                    console.log("✅ 音频上下文已激活");
+                }
+                if (this.settings.bgmEnabled && this.bgAudio && this.bgAudio.paused && this.currentBgmUrl) {
+                    this.playBgmWithFallback();
+                }
+                document.removeEventListener('click', handler);
+                document.removeEventListener('touchstart', handler);
+            };
+            document.addEventListener('click', handler);
+            document.addEventListener('touchstart', handler);
+        }
+        
+        // 外部调用强制激活（测试按钮用）
+        async ensureActive() {
+            if (!this.audioCtx || this.audioCtx.state !== 'running') {
+                await this.initAudioContext();
+            }
+        }
+    }
+    
+    // ========== UI 绑定与存储 ==========
+    const manager = new AudioEffectsManager();
+    
+    const hoverToggle = document.getElementById('hoverToggle');
+    const clickToggle = document.getElementById('clickToggle');
+    const bgmToggle = document.getElementById('bgmToggle');
+    const bgmVolume = document.getElementById('bgmVolume');
+    const bgmUrlInput = document.getElementById('bgmUrlInput');
+    const browseBtn = document.getElementById('browseFileBtn');
+    const testBtn = document.getElementById('testEffectBtn');
+    const demoCards = document.querySelectorAll('.demo-card');
+    
+    // 加载存储配置
+    function loadSettings() {
+        const saved = localStorage.getItem('navAudioSettings_fixed');
+        if (saved) {
+            try {
+                const s = JSON.parse(saved);
+                manager.settings = { ...manager.settings, ...s };
+                hoverToggle.checked = manager.settings.hoverEnabled;
+                clickToggle.checked = manager.settings.clickEnabled;
+                bgmToggle.checked = manager.settings.bgmEnabled;
+                bgmVolume.value = manager.settings.bgmVolume;
+                bgmUrlInput.value = manager.settings.bgmUrl || '';
+                manager.setBgmVolume(manager.settings.bgmVolume);
+                if (manager.settings.bgmUrl) {
+                    manager.initBackgroundMusic(manager.settings.bgmUrl);
+                }
+                if (manager.settings.bgmEnabled) {
+                    manager.setBgmEnabled(true);
+                }
+            } catch(e) {}
+        }
+    }
+    
+    function saveSettings() {
+        const toSave = {
+            hoverEnabled: manager.settings.hoverEnabled,
+            clickEnabled: manager.settings.clickEnabled,
+            bgmEnabled: manager.settings.bgmEnabled,
+            bgmVolume: manager.settings.bgmVolume,
+            bgmUrl: manager.settings.bgmUrl
+        };
+        localStorage.setItem('navAudioSettings_fixed', JSON.stringify(toSave));
+    }
+    
+    // 事件绑定
+    hoverToggle.addEventListener('change', (e) => {
+        manager.setHoverEnabled(e.target.checked);
+        saveSettings();
+    });
+    clickToggle.addEventListener('change', (e) => {
+        manager.setClickEnabled(e.target.checked);
+        saveSettings();
+    });
+    bgmToggle.addEventListener('change', (e) => {
+        manager.setBgmEnabled(e.target.checked);
+        saveSettings();
+    });
+    bgmVolume.addEventListener('input', (e) => {
+        const vol = parseFloat(e.target.value);
+        manager.setBgmVolume(vol);
+        manager.settings.bgmVolume = vol;
+        saveSettings();
+    });
+    bgmUrlInput.addEventListener('change', (e) => {
+        const url = e.target.value.trim();
+        manager.settings.bgmUrl = url;
+        if (url) manager.updateBgmUrl(url);
+        saveSettings();
+    });
+    
+    // 浏览本地文件
+    browseBtn.addEventListener('click', () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'audio/*';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                manager.revokeLocalBlob();
+                const blobUrl = URL.createObjectURL(file);
+                manager.localBlobUrl = blobUrl;
+                bgmUrlInput.value = blobUrl;
+                manager.settings.bgmUrl = blobUrl;
+                if (bgmToggle.checked) {
+                    manager.updateBgmUrl(blobUrl);
+                } else {
+                    manager.initBackgroundMusic(blobUrl);
+                }
+                saveSettings();
+            }
+        };
+        input.click();
+    });
+    
+    // 测试按钮：先悬停音效后点击音效
+    testBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        await manager.ensureActive();
+        await manager.playHover();
+        setTimeout(() => manager.playClick(), 120);
+    });
+    
+    // 为演示卡片绑定悬停和点击
+    demoCards.forEach(card => {
+        card.addEventListener('mouseenter', () => manager.playHover());
+        card.addEventListener('click', () => manager.playClick());
+    });
+    
+    // 启动
+    loadSettings();
+    
+    // 如果浏览器默认阻止了背景音乐，显示友好提示（通过全局交互即可恢复）
+    if (manager.settings.bgmEnabled && manager.settings.bgmUrl) {
+        setTimeout(() => {
+            if (manager.bgAudio && manager.bgAudio.paused) {
+                manager.showAutoPlayTip();
+            }
+        }, 500);
+    }
+    
+    // 页面关闭前清理 blob URL
+    window.addEventListener('beforeunload', () => {
+        if (manager.localBlobUrl) URL.revokeObjectURL(manager.localBlobUrl);
+        if (manager.bgAudio) manager.bgAudio.pause();
+        if (manager.audioCtx) manager.audioCtx.close();
+    });
+</script>
+</body>
+</html>
