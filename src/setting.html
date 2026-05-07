@@ -14,7 +14,7 @@
             <li><a href="main.html">主页</a></li>
         </ul>
     </div>
-    <p class="notice"></p>
+    <p class="notice" style="background-color: black;font-size: 30px;"></p>
     <div class="editLink">
         <div class="left">
             <h2 style="text-align: left;margin-top: 30px;margin-left: 30px;display: block;">
@@ -30,10 +30,30 @@
                     <label>
                         网站链接：<input class="inputText" type="url" name="siteURL" placeholder="例如：https://github.com" id="newLinkURL">
                     </label><br>
-                    <label style="margin-bottom: 0px;">
-                        图标路径：<input class="inputText" type="text" name="siteIcon" placeholder="例如：../image/git.png" id="newLinkImg">
-                    </label><br>
-                    <p style="text-align: left;margin-left: 10px; color: rgb(177, 177, 177);">*若不填写则使用默认图标</p><br>
+                    <label>选择图标：</label>
+                    <div class="linkIconChose" role="radiogroup" aria-label="导航图标预设">
+                        <label class="linkIcon-option">
+                            <input type="radio" name="linkIcon" checked value="toby">
+                            <span class="linkIcon-tile"><img src="../image/dog.webp" alt="Toby"></span>
+                        </label>
+                        <label class="linkIcon-option">
+                            <input type="radio" name="linkIcon" value="sans">
+                            <span class="linkIcon-tile"><img src="../image/sans.png" alt="Sans"></span>
+                        </label>
+                        <label class="linkIcon-option">
+                            <input type="radio" name="linkIcon" value="flower">
+                            <span class="linkIcon-tile"><img src="../image/flower.webp" alt="Flowey"></span>
+                        </label>
+                        <label class="linkIcon-option">
+                            <input type="radio" name="linkIcon" value="r羊">
+                            <span class="linkIcon-tile"><img src="../image/r羊.png" alt="Ralsei"></span>
+                        </label>
+                        <label class="linkIcon-option">
+                            <input type="radio" name="linkIcon" value="chara">
+                            <span class="linkIcon-tile"><img src="../image/chara.png" alt="Chara"></span>
+                        </label>
+                    </div>
+                    <br>
                     <button type="button" class="baseBlock" id="addButton" style="margin-left: 10px;margin-bottom: 30px;text-align: center;display: block;width: 90%;height: 50px;">
                         <span class="buttonText" style="font-size: 30px;">确认添加</span>
                     </button>
@@ -46,7 +66,7 @@
                 已添加的导航项
             </h2>
             <p style="text-align: left;margin-top: 10px;margin-left: 30px;color: rgb(177, 177, 177);">在此处编辑已添加的导航项</p><br>
-            <div class="baseBlock" style="height: 369px;margin: 10px;">
+            <div class="baseBlock" style="height: 500px;margin: 10px;">
                 <div class="linkList baseBlock" id="linkListContainer">
                     <!-- 已添加的链接将显示在这里 -->
                 </div>
@@ -58,8 +78,9 @@
         </div>
     </div>
     <br>
-    <div class="ConfigSetting baseBlock">
-        <!-- 样式模板 -->
+    <span class="buttonText" id="toDefaultLink" style="font-size: 30px;user-select: none;display: block;margin-left: 70%;">恢复默认导航列表</span>   
+    <p style="text-align: left;margin-bottom: 10px;margin-left: 10%;">*因W3C标准限制,音效功能暂不可用</p>
+    <!-- <div class="ConfigSetting baseBlock">
          <div>
             <div>按键点击音效</div>
             <button><span class="buttonText">关闭</span></button>
@@ -76,7 +97,7 @@
             <div>自定义主页背景音乐</div>
             <input class="inputText" type="text" name="siteIcon" placeholder="例如：../mus/ch4_credits.mp3" id="newBGM">
         </div>
-    </div>
+    </div> -->
     <script src="dogcode.js"></script>
 </body>
 </html>

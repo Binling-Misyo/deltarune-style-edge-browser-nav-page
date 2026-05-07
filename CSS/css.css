@@ -241,7 +241,7 @@ li > a:hover::before {
     gap: 17px;
     font-size: 30px;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    /* grid-template-rows: repeat(5, 1fr); */
 }
 
 .ptr div {
@@ -337,6 +337,135 @@ a > div:hover::before {
     bottom: 20px;
     width: 100%;
     height: 10%;
+}
+
+/* ===== News / 社区 Page ===== */
+.news-page {
+    min-height: 100vh;
+    padding-bottom: 32px;
+    line-height: 1.45;
+}
+
+.news-wrap {
+    width: min(880px, 92vw);
+    margin: 28px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.news-section {
+    border: 4px solid #fff;
+    background: #000;
+    padding: 22px 26px 28px;
+    text-align: left;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.news-section h2 {
+    margin: 0 0 18px;
+    font-size: 28px;
+    text-align: left;
+    font-weight: normal;
+}
+
+.news-link-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.news-link-list li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.news-link-list li:last-child {
+    border-bottom: none;
+}
+
+.news-link-list a {
+    display: block;
+    position: relative;
+    padding: 14px 12px 14px 36px;
+    font-size: 22px;
+    text-align: left;
+    color: #fff;
+    transition:
+        color 0.14s ease,
+        padding-left 0.14s ease,
+        background-color 0.14s ease;
+}
+
+.news-link-list a::before {
+    content: "*";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffee00;
+    opacity: 0.85;
+    font-size: 26px;
+}
+
+.news-link-list a:hover {
+    padding-left: 42px;
+    color: #ffee00;
+    background-color: rgba(255, 238, 0, 0.06);
+}
+
+.news-audio-hint {
+    margin: -6px 0 18px;
+    font-size: 18px;
+    color: rgb(177, 177, 177);
+    text-align: left;
+}
+
+.news-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.news-track {
+    padding: 14px 16px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.news-track-label {
+    margin: 0 0 10px;
+    font-size: 19px;
+    text-align: left;
+    color: #e8e8e8;
+}
+
+.news-track audio {
+    display: block;
+    width: 100%;
+    height: 40px;
+}
+
+.news-footer.end {
+    position: relative;
+    bottom: auto;
+    height: auto;
+    margin-top: 40px;
+    padding: 20px 16px 32px;
+    text-align: center;
+}
+
+.news-footer hr {
+    margin: 0 auto 16px;
+    max-width: min(880px, 92vw);
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+.news-footer p {
+    font-size: 20px;
+    line-height: 1.5;
 }
 
 /* ===== Wiki Page ===== */

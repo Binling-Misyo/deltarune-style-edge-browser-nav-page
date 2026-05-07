@@ -1,5 +1,48 @@
 console.log("狗代码开始加载...");
 
+/** 预设图标：与 setting.html 中 radio 的 value 一致 */
+const PRESET_ICONS = {
+    toby: "../image/dog.webp",
+    sans: "../image/sans.png",
+    flower: "../image/flower.webp",
+    r羊: "../image/r羊.png",
+    chara: "../image/chara.png"
+};
+const PRESET_LABELS = {
+    toby: "Toby",
+    sans: "Sans",
+    flower: "小花",
+    r羊: "Ralsei",
+    chara: "Chara"
+};
+
+function resolvePresetKey(imgPath) {
+    if (!imgPath) return null;
+    const normalized = imgPath.replace(/\\/g, "/");
+    for (const [key, path] of Object.entries(PRESET_ICONS)) {
+        if (normalized === path || normalized.endsWith(path.replace(/^\.\.\//, ""))) return key;
+    }
+    return null;
+}
+
+function presetLabelForPath(imgPath) {
+    const key = resolvePresetKey(imgPath);
+    return key ? PRESET_LABELS[key] : (imgPath.split("/").pop() || imgPath);
+}
+
+function getSelectedPresetPath() {
+    const checked = document.querySelector('input[name="linkIcon"]:checked');
+    const key = checked ? checked.value : "toby";
+    return PRESET_ICONS[key] || PRESET_ICONS.toby;
+}
+
+function selectPresetRadioForPath(imgPath) {
+    const key = resolvePresetKey(imgPath) || "toby";
+    document.querySelectorAll('input[name="linkIcon"]').forEach((el) => {
+        el.checked = el.value === key;
+    });
+}
+
 // ==================== 数据结构 ====================
 class LinkDiv {
     constructor(name, url, id, imgPath) {
@@ -19,11 +62,12 @@ class LinkDiv {
     }
 
     editViewHTML() {
-        return `<div id="edit-${this.id}" class="edit-item" data-id="${this.id}>
+        const iconLabel = presetLabelForPath(this.imgPath);
+        return `<div id="edit-${this.id}" class="edit-item" data-id="${this.id}">
             <span class="edit-id">&nbsp; * ${this.id + 1}</span>
             <span class="edit-name">${this.name}</span>
             <span class="edit-url" title="${this.url}">${this.url}</span>
-            <span class="edit-img" title="${this.imgPath}">${this.imgPath}</span>
+            <span class="edit-img" title="${this.imgPath}">${iconLabel}</span>
             <div class="edit-actions" style="display: inline-block;text-align: right;">
                 <button class="move-up-btn buttonText" data-id="${this.id}" ${this.id === 0 ? 'disabled' : ''}>↑</button>
                 <button class="move-down-btn buttonText" data-id="${this.id}">↓</button>
@@ -58,7 +102,7 @@ const DefaultLinkList = [
 let linkList = [];
 let currentEditId = null;           // 正在编辑的链接ID
 let currentPage = 1;
-const itemsPerPage = 7;
+const itemsPerPage = 10;
 
 // DOM 元素
 const addButton = document.getElementById('addButton');
@@ -67,13 +111,13 @@ const pgdownButton = document.getElementById('pgdownButton');
 const linkListContainer = document.getElementById('linkListContainer');
 const nameInput = document.getElementById('newLinkName');
 const urlInput = document.getElementById('newLinkURL');
-const imgInput = document.getElementById('newLinkImg');
 
 // ==================== 辅助函数 ====================
 function addNotice(message, isGood = true) {
     const notice = document.querySelector(".notice");
-    notice.textContent = message;
-    notice.style.color = isGood ? '#4caf50' : '#f44336';
+    notice.textContent = '*'+message;
+    notice.style.color = isGood ? 'yellow' : '#f44336';
+    // notice.style.backgroundColor = 'black';
     console.log("显示通知：", message);
     setTimeout(() => {
         notice.textContent = "";
@@ -109,7 +153,17 @@ function loadLinkList() {
     }
     console.log("加载链接列表完成，当前数量:", linkList.length);
 }
-
+//恢复默认列表（清空当前列表并加载默认数据）
+function defaultLinkList() {
+    if (confirm("确定要恢复默认列表吗？这将清空当前的链接列表！")) {
+        linkList = DefaultLinkList.map(item => new LinkDiv(item.name, item.url, item.id, item.imgPath));
+        reindexLinkList();
+        saveLinkList();
+        renderEditList();
+        addNotice("已恢复默认列表");
+    }
+}
+document.getElementById('toDefaultLink').addEventListener('click', defaultLinkList);
 // ==================== 渲染编辑列表 (分页) ====================
 function renderEditList() {
     const totalPages = Math.ceil(linkList.length / itemsPerPage) || 1;
@@ -149,7 +203,7 @@ function renderEditList() {
 function resetAddForm() {
     nameInput.value = '';
     urlInput.value = '';
-    imgInput.value = '';
+    selectPresetRadioForPath(PRESET_ICONS.toby);
     addButton.innerHTML = '<span class="buttonText" style="font-size: 30px;">确认添加</span>';
     currentEditId = null;
 }
@@ -160,7 +214,7 @@ function fillFormForEdit(id) {
     if (!item) return;
     nameInput.value = item.name;
     urlInput.value = item.url;
-    imgInput.value = item.imgPath;
+    selectPresetRadioForPath(item.imgPath);
     addButton.innerHTML = '<span class="buttonText" style="font-size: 30px;">确认修改</span>';
     currentEditId = id;
 }
@@ -169,7 +223,7 @@ function fillFormForEdit(id) {
 function handleSubmit() {
     const name = nameInput.value.trim();
     let url = urlInput.value.trim();
-    const imgPath = imgInput.value.trim();
+    const imgPath = getSelectedPresetPath();
 
     if (!name) {
         addNotice("网站名称不能为空", false);

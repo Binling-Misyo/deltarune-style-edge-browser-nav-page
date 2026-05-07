@@ -14,7 +14,7 @@
 }
 .newLink{
     width: 90%;
-    height: 369px;
+    height: 500px;
     margin: 10px;
 }
 .inputText{
@@ -61,8 +61,8 @@
     color: yellow;
     text-align: center;
     position: absolute;
-    left: 2%;
-    bottom: 1%;
+    left: 0px;
+    bottom: 0px;
     font-size: 20px;
 }
 .editLink{
@@ -75,11 +75,13 @@
     display: flex;
     width: 40%;
     flex-direction: column;
+    height: 700px;
 }
 .editLink >.right{
     display: flex;
     width: 60%;
     flex-direction: column;
+    height: 700px;
 }
 .linkList{
     margin: 3%;
@@ -127,6 +129,97 @@
     display: flex;
     gap: 10px;
     justify-content: space-around;
+}
+/* 预设图标：隐藏原生圆点，用卡片边框表达选择与 Undertale/Deltarune 风 UI */
+.baseBlock .linkIconChose label.linkIcon-option {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    font-size: inherit;
+    text-align: center;
+    cursor: pointer;
+}
+
+.linkIconChose {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 12px 0 8px 10px;
+    align-items: flex-start;
+}
+
+.linkIcon-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    clip: rect(0, 0, 0, 0);
+}
+
+.linkIcon-tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 76px;
+    height: 76px;
+    border: 2px solid #fff;
+    background: #000;
+    transition:
+        border-color 0.12s ease,
+        box-shadow 0.12s ease,
+        transform 0.12s ease;
+}
+
+.linkIcon-tile img {
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.linkIcon-option:hover .linkIcon-tile {
+    border-color: #ffee00;
+    box-shadow: inset 0 0 0 1px rgba(255, 238, 0, 0.35);
+}
+
+.linkIcon-option:active .linkIcon-tile {
+    transform: scale(0.97);
+}
+
+.linkIcon-option:has(input:checked) .linkIcon-tile {
+    border-color: #ffee00;
+    box-shadow:
+        0 0 0 2px #000,
+        0 0 14px rgba(255, 238, 0, 0.5);
+    transform: scale(1.06);
+}
+
+.linkIcon-option:has(input:checked) .linkIcon-tile::after {
+    content: "*";
+    position: absolute;
+    right: 5px;
+    bottom: 2px;
+    color: #ffee00;
+    font-family: "undertalefont", "undertalech", sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    pointer-events: none;
+    text-shadow:
+        1px 0 0 #000,
+        -1px 0 0 #000,
+        0 1px 0 #000,
+        0 -1px 0 #000;
+}
+
+.linkIcon-option:focus-within .linkIcon-tile {
+    outline: 2px dashed #88ff00;
+    outline-offset: 3px;
 }
 .edit-actions>button{
     font-size: 20px;
