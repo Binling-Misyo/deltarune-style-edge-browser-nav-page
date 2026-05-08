@@ -116,7 +116,7 @@ const urlInput = document.getElementById('newLinkURL');
 function addNotice(message, isGood = true) {
     const notice = document.querySelector(".notice");
     notice.textContent = '*'+message;
-    notice.style.color = isGood ? 'yellow' : '#f44336';
+    notice.style.color = isGood ? 'yellow' : 'red';
     // notice.style.backgroundColor = 'black';
     console.log("显示通知：", message);
     setTimeout(() => {

@@ -26,19 +26,22 @@
         </video>
         <div class="timedisplay" id="timedisplay" style="font-size: 30px;color: white;text-align: center;">时间显示占位符</div>
         <div class="search-wrap" lang="zh">
-            <form id="searchForm" class="bing-search" action="https://cn.bing.com/search" method="get" target="_self">
-                <select id="searchEngine" aria-label="选择搜索引擎">
-                    <option value="bing" selected><span lang="en">Bing</span></option>
-                    <option value="google"><span lang="en">Google</span></option>
-                    <option value="baidu"><span lang="en">Baidu</span></option>
-                    <option value="github"><span lang="en">GitHub</span></option>
-                </select>
-                <input id="searchInput" type="text" name="q" placeholder="在 Bing 中搜索..." autocomplete="off" required>
-                <button type="submit">搜索</button>
-            </form>
+            <div class="bing-search-shell" id="bingSearchShell">
+                <form id="searchForm" class="bing-search" action="https://www.baidu.com/s" method="get" target="_self">
+                    <select id="searchEngine" aria-label="选择搜索引擎">
+                        <option value="baidu" selected><span lang="en">百度</span></option>
+                        <option value="bing"><span lang="en">Bing</span></option>
+                        <option value="google"><span lang="en">Google</span></option>
+                        <option value="github"><span lang="en">GitHub</span></option>
+                    </select>
+                    <input id="searchInput" type="text" name="wd" placeholder="在 Baidu 中搜索..." autocomplete="off" required>
+                    <button type="submit">搜索</button>
+                </form>
+                <ul id="searchSuggestions" class="search-suggestions" role="listbox" aria-hidden="true" hidden></ul>
+            </div>
         </div>
     </div>
-    <br>
+    <br><br>
     <!-- 导航表 -->
     <div class="ptr" lang="zh">
            
