@@ -2,9 +2,22 @@
   "manifest_version": 3,
   "name": "MISYO Deltarune Navigation",
   "version": "1.0.0",
-  "description": "A Deltarune-style custom new tab page for Microsoft Edge with Bing search.",
+  "description": "A Deltarune-style custom new tab page for Microsoft Edge with Baidu, Bing, Google, and GitHub search.",
   "chrome_url_overrides": {
     "newtab": "src/main.html"
   },
-  "permissions": ["storage"]
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://api.bing.com/*",
+    "https://cn.bing.com/*",
+    "https://suggestion.baidu.com/*",
+    "https://www.baidu.com/*",
+    "https://suggestqueries.google.com/*",
+    "https://www.google.com/*",
+    "https://api.github.com/*",
+    "https://github.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' https://suggestqueries.google.com https://suggestion.baidu.com; connect-src 'self' https://api.bing.com https://api.github.com; object-src 'self'; worker-src 'self'; frame-ancestors 'none'"
+  }
 }
