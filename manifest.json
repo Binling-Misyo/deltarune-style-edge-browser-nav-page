@@ -18,6 +18,6 @@
     "https://github.com/*"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' https://suggestqueries.google.com https://suggestion.baidu.com; connect-src 'self' https://api.bing.com https://api.github.com; object-src 'self'; worker-src 'self'; frame-ancestors 'none'"
+    "extension_pages": "script-src 'self'; connect-src 'self' https://api.bing.com https://api.github.com https://suggestion.baidu.com https://suggestqueries.google.com; object-src 'self'; worker-src 'self'; frame-ancestors 'none'"
   }
 }

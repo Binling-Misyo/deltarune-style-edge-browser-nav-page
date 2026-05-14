@@ -1,0 +1,22 @@
+/* detlarune高级边框样式,直接逐元素暴力覆盖 */
+.navboder{
+    position: relative;
+    border: 40px solid transparent;
+	border-image-source: url('../image/三角符文对话框.png');
+	border-image-slice: 54;
+    background-color: rgba(0, 0, 0, 0.808);
+    border-image-outset: 0.3;
+    z-index: 2;
+    margin-top: 10px;
+}
+
+.navboder :where(h1, li, a, span) {
+    text-shadow: 3px 3px 0 #000;
+}
+.news-section{
+    border: 40px solid transparent;
+	border-image-source: url('../image/三角符文对话框.png');
+	border-image-slice: 54;
+    border-image-outset: 0.3;
+    background-color: rgba(0, 0, 0, 0.808);
+}

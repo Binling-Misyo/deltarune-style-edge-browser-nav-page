@@ -67,9 +67,9 @@ const engineConfig = {
         action: "https://www.google.com/search",
         inputName: "q",
         placeholder: "在 Google 中搜索...",
-        suggestType: "jsonp",
-        suggestUrl: (query, callbackName) =>
-            `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}&callback=${callbackName}`,
+        suggestType: "fetch",
+        suggestUrl: (query) =>
+            `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(query)}`,
         parseResponse: (data) => {
             if (Array.isArray(data) && data.length >= 2 && Array.isArray(data[1])) {
                 return data[1];
@@ -81,10 +81,22 @@ const engineConfig = {
         action: "https://www.baidu.com/s",
         inputName: "wd",
         placeholder: "在 Baidu 中搜索...",
-        suggestType: "jsonp",
-        suggestUrl: (query, callbackName) =>
-            `https://suggestion.baidu.com/su?wd=${encodeURIComponent(query)}&cb=${callbackName}&ie=utf-8`,
-        parseResponse: (data) => (data && data.s ? data.s : []),
+        suggestType: "fetch",
+        suggestUrl: (query) =>
+            `https://suggestion.baidu.com/su?wd=${encodeURIComponent(query)}&ie=utf-8`,
+        parseResponse: (text) => {
+            // 提取 window.baidu.sug({...}) 里的 {...}
+            const match = text.match(/window.baidu.sug\((.*)\);?/);
+            if (match && match[1]) {
+                try {
+                    const obj = JSON.parse(match[1]);
+                    return obj && Array.isArray(obj.s) ? obj.s : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+            return [];
+        },
     },
     github: {
         action: "https://github.com/search",
@@ -235,76 +247,9 @@ function hideSuggestions() {
     highlightedIndex = -1;
 }
 
-function fetchSuggestionsJsonp(urlFn, parseFn, query) {
-    const currentRequestId = ++requestId;
-    const callbackName = `_nav_suggest_${currentRequestId}_${Date.now()}`;
-
-    window[callbackName] = function (data) {
-        cleanupJsonp(callbackName);
-        if (currentRequestId !== requestId) return;
-        try {
-            const items = parseFn(data);
-            if (currentRequestId === requestId) {
-                renderSuggestions(items, query);
-            }
-        } catch (err) {
-            console.error("解析联想词失败:", err);
-            if (currentRequestId === requestId) {
-                showError("解析响应失败");
-            }
-        }
-    };
-
-    const script = document.createElement("script");
-    script.src = urlFn(callbackName);
-    script.async = true;
-    script.onerror = function () {
-        cleanupJsonp(callbackName);
-        if (currentRequestId === requestId) {
-            showError("网络请求失败");
-        }
-    };
-    jsonpScripts.push({ script, callbackName });
-
-    const timeoutId = setTimeout(() => {
-        cleanupJsonp(callbackName);
-        if (currentRequestId === requestId) {
-            showError("请求超时");
-        }
-    }, 5000);
-    script.dataset.timeoutId = String(timeoutId);
-
-    document.head.appendChild(script);
-}
-
-function cleanupJsonp(callbackName) {
-    jsonpScripts = jsonpScripts.filter((item) => {
-        if (item.callbackName === callbackName) {
-            if (item.script.parentNode) {
-                item.script.parentNode.removeChild(item.script);
-            }
-            const timeoutId = item.script.dataset.timeoutId;
-            if (timeoutId) clearTimeout(Number(timeoutId));
-            return false;
-        }
-        return true;
-    });
-    if (window[callbackName]) {
-        delete window[callbackName];
-    }
-}
-
+// 移除 JSONP 相关函数
 function cleanupAllJsonp() {
-    jsonpScripts.forEach((item) => {
-        if (item.script.parentNode) {
-            item.script.parentNode.removeChild(item.script);
-        }
-        const timeoutId = item.script.dataset.timeoutId;
-        if (timeoutId) clearTimeout(Number(timeoutId));
-        if (window[item.callbackName]) {
-            delete window[item.callbackName];
-        }
-    });
+    // 兼容旧调用，现无实际作用
     jsonpScripts = [];
     requestId++;
 }
@@ -320,7 +265,7 @@ async function fetchSuggestionsFetch(url, parseFn, query) {
     try {
         const response = await fetch(url, {
             signal: controller.signal,
-            headers: { Accept: "application/json" },
+            // Accept 头部根据 API 类型调整
         });
 
         if (currentRequestId !== requestId) return;
@@ -336,7 +281,13 @@ async function fetchSuggestionsFetch(url, parseFn, query) {
             return;
         }
 
-        const data = await response.json();
+        // 百度返回文本，谷歌/GitHub等返回 JSON
+        let data;
+        if (url.includes('baidu.com/su')) {
+            data = await response.text();
+        } else {
+            data = await response.json();
+        }
         if (currentRequestId !== requestId) return;
 
         const items = parseFn(data);
@@ -360,13 +311,7 @@ const getSuggestions = debounce(function (query) {
     const config = engineConfig[engine] || engineConfig.bing;
     showLoading();
 
-    if (config.suggestType === "jsonp") {
-        fetchSuggestionsJsonp(
-            (cbName) => config.suggestUrl(trimmed, cbName),
-            config.parseResponse,
-            trimmed
-        );
-    } else if (config.suggestType === "fetch") {
+    if (config.suggestType === "fetch") {
         fetchSuggestionsFetch(
             config.suggestUrl(trimmed),
             config.parseResponse,
