@@ -57,7 +57,6 @@
         color: rgb(255, 180, 198);
     }
 }
-
 /* ===== Base ===== */
 * {
     margin: 0;
@@ -109,10 +108,31 @@ hr {
     background-color: black;
 }
 
+.dhbql-slot {
+    position: relative;
+    flex-shrink: 0;
+}
+
 .dhbql {
     display: flex;
     justify-content: flex-end;
     list-style-type: none;
+}
+
+.nav-time {
+    position: absolute;
+    left: -60%;
+    top: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-family: "undertalefont", "undertalech", sans-serif;
+    font-size: 35px;
+    line-height: 1;
+    color: white;
+    text-shadow: 3px 2px black;
+    font-variant-numeric: tabular-nums;
+    backdrop-filter: blur(14px);
 }
 
 .dhbql > li {

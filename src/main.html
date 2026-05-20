@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MISYOTALE</title>
     <link rel="stylesheet" href="../CSS/css.css">
-    <link rel="icon" href="../image/icon.png">
+    <link rel="icon" href="../image/deter.png">
     <link rel="stylesheet" href="../CSS/sysboder.css">
 </head>
 
@@ -19,23 +19,25 @@
         </video>
     <div class="dhl navboder" lang="zh">
     <h1 id="Start">*DELTARUNE&nbsp;<span lang="zh">导航页</span></h1>
-    <ul class="dhbql" lang="zh">
-        <li><a href="news.html">社区</a></li>
-        <li><a href="https://github.com/Binling-Misyo" target="_blank">作者</a></li>
-        <li><a href="setting.html">设置</a></li>
-    </ul>
+    <div class="dhbql-slot">
+        <ul class="dhbql" lang="zh">
+            <li><a href="news.html">社区</a></li>
+            <li><a href="https://binlingmisyo.vercel.app" target="_blank">作者</a></li>
+            <li><a href="setting.html">设置</a></li>
+        </ul>
+        <time class="nav-time" id="searchTime" datetime="" aria-live="polite">00:00</time>
     </div>
-        <div class="timedisplay" id="timedisplay" style="font-size: 30px;color: white;text-align: center;">时间显示占位符</div>
+    </div>
         <div class="search-wrap" lang="zh">
             <div class="bing-search-shell" id="bingSearchShell">
-                <form id="searchForm" class="bing-search" action="https://www.baidu.com/s" method="get" target="_self">
+                <form id="searchForm" class="bing-search" action="https://cn.bing.com/search" method="get" target="_self">
                     <select id="searchEngine" aria-label="选择搜索引擎">
-                        <option value="baidu" selected><span lang="en">百度</span></option>
-                        <option value="bing"><span lang="en">Bing</span></option>
+                        <option value="bing" selected><span lang="en">Bing</span></option>
+                        <option value="baidu"><span lang="en">百度</span></option>
                         <option value="google"><span lang="en">Google</span></option>
                         <option value="github"><span lang="en">GitHub</span></option>
                     </select>
-                    <input id="searchInput" type="text" name="wd" placeholder="在 Baidu 中搜索..." autocomplete="off" required>
+                    <input id="searchInput" type="text" name="q" placeholder="在 Bing 中搜索..." autocomplete="off" required>
                     <button type="submit">搜索</button>
                 </form>
                 <ul id="searchSuggestions" class="search-suggestions" role="listbox" aria-hidden="true" hidden></ul>

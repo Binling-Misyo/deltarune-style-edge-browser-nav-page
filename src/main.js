@@ -441,3 +441,29 @@ document.addEventListener("click", function (e) {
         hideSuggestions();
     }
 });
+
+const searchTimeEl = document.getElementById("searchTime");
+
+function formatClockTime(date) {
+    const h = String(date.getHours()).padStart(2, "0");
+    const m = String(date.getMinutes()).padStart(2, "0");
+    return `${h}:${m}`;
+}
+
+function updateSearchTime() {
+    if (!searchTimeEl) return;
+    const now = new Date();
+    const text = formatClockTime(now);
+    searchTimeEl.textContent = text;
+    searchTimeEl.dateTime = now.toISOString();
+}
+
+if (searchTimeEl) {
+    updateSearchTime();
+    const msToNextMinute =
+        (60 - new Date().getSeconds()) * 1000 - new Date().getMilliseconds();
+    setTimeout(() => {
+        updateSearchTime();
+        setInterval(updateSearchTime, 60_000);
+    }, msToNextMinute);
+}
